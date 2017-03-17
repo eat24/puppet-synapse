@@ -1,6 +1,10 @@
+<% require "json" -%>
 {
-  "default_servers": <%= require "json"; JSON.pretty_generate(@default_servers) %>,
-  "discovery": <%= require "json"; JSON.pretty_generate(@discovery) %>,
-  "haproxy": <%= require "json"; JSON.pretty_generate(@haproxy) %>,
+  "default_servers": <%= JSON.pretty_generate(@default_servers) %>,
+  "discovery": <%= JSON.pretty_generate(@discovery) %>,
+<% if !@label_filters.nil? && !@label_filters.empty? -%>
+  "label_filters": <%= JSON.pretty_generate(@label_filters) %>,
+<% end -%>
+  "haproxy": <%= JSON.pretty_generate(@haproxy) %>,
   "leader_election": <%= if @leader_election then "true" else "false" end %>
 }

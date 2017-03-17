@@ -15,7 +15,7 @@
 #         "port" => 5432
 #       }
 #     ]
-# 
+#
 # [*discovery*]
 #  How synapse discovers hosts for the service.
 #  Must be a hash.
@@ -58,6 +58,7 @@ define synapse::service (
   $haproxy,
   $leader_election = false,
   $ensure = 'present',
+  $label_filters = [],
   $target = "/etc/synapse/conf.d/${name}.json",
 ) {
 
@@ -66,6 +67,7 @@ define synapse::service (
   validate_hash($discovery)
   validate_hash($haproxy)
   validate_bool($leader_election)
+  validate_array($label_filters)
   validate_absolute_path($target)
 
   file { $target:
